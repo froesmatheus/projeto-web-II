@@ -104,6 +104,34 @@ public class NoticiaDAO {
         return lista;
     }
     
+    public List<Noticia> where(String query) {
+        List<Noticia> lista = new ArrayList<>();
+        
+        try {
+            PreparedStatement smt = con.prepareStatement("select * from noticias where lower(titulo) like lower(?) or lower(conteudo) like lower(?)");
+            
+            smt.setString(1, "%" + query + "%");
+            smt.setString(2, "%" + query + "%");
+            
+            ResultSet rs = smt.executeQuery();
+            
+            while (rs.next()) {
+                Noticia noticia = new Noticia();
+                
+                noticia.setId(rs.getInt("id"));
+                noticia.setTitulo(rs.getString("titulo"));
+                noticia.setConteudo(rs.getString("conteudo"));
+                
+                lista.add(noticia);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NoticiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return lista;
+    }
+    
     public Noticia select(int id) {
         Noticia noticia = new Noticia();
         
