@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8" session="true" %>
 <!DOCTYPE html>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -9,12 +9,17 @@
     <a class="navbar-brand" href="index.jsp">Matheus Fróes</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
+            <%
+                if (session.getAttribute("logado") != null) {
+                    
+                }
+            %>
             <a class="nav-link" href="adicionarNoticia.jsp">Adicionar<span class="sr-only">(current)</span></a>
         </li>
-
-        <!--        <form name="form" id="as" class="form-inline pull-xs-right" method="get" action="insertNoticia.jsp">
-                    <input class="form-control" type="text" name="query" placeholder="">
-                    <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-                  </form>-->
     </ul>
+    
+    <form class="form-inline pull-xs-right" method="get" action="index.jsp">
+        <input class="form-control" type="text" name="query" placeholder="">
+        <button class="btn btn-success" type="submit">Pesquisar</button>
+    </form>
 </nav>

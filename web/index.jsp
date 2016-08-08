@@ -3,12 +3,25 @@
     Created on : 06/08/2016, 19:53:29
     Author     : mathe
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="models.Noticia"%>
 <%@page import="db.daos.NoticiaDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" session="true"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     NoticiaDAO dao = new NoticiaDAO();
+    
+    List<Noticia> listaNoticias;
+    
+    boolean filtrando;
+    if (request.getParameter("query") != null) {
+        listaNoticias = dao.where(request.getParameter("query"));
+        filtrando = true;
+    } else {
+        filtrando = false;
+        listaNoticias = dao.select();
+    }
 %>
 <html lang="pt-BR">
     
@@ -31,8 +44,16 @@
   <body>
 
     <div class="container">
-
-        <% for (Noticia noticia : dao.select()) {%>
+        <%
+            if (filtrando) {%>
+                <h3>Filtrando por: <%=request.getParameter("query")%></h3>
+                <br/>
+          <%}
+          %>
+        
+        
+        
+        <% for (Noticia noticia : listaNoticias) {%>
             <article>
                 <h3><%=noticia.getTitulo()%></h3>
                 <p><%=noticia.getConteudo()%></p>
@@ -67,6 +88,9 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
   
-    
+   
+    <footer>
+        <%@include file="footer.jspf" %>
+    </footer>
 </body>
 </html>
