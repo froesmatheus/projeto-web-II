@@ -1,0 +1,14 @@
+<%@ page pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="css/starter-template.css" rel="stylesheet">
+
+<nav class="navbar navbar-static-bottom navbar-dark bg-inverse">
+    
+    
+    <form class="form-inline pull-xs-right" method="post" action="login.jsp">
+        <button class="btn navbar-btn btn-toolbar" type="submit">Login</button>
+    </form>
+</nav>
