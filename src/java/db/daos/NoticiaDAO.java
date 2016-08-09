@@ -29,10 +29,10 @@ public class NoticiaDAO {
     
     public boolean insert(Noticia noticia) {
         try {
-            PreparedStatement smt = con.prepareStatement("insert into noticias(titulo, conteudo) values (?, ?)");
+            PreparedStatement smt = con.prepareStatement("insert into noticias(titulo, resumo) values (?, ?)");
             
             smt.setString(1, noticia.getTitulo());
-            smt.setString(2, noticia.getConteudo());
+            smt.setString(2, noticia.getResumo());
             
             int affectedRows = smt.executeUpdate();
                
@@ -46,10 +46,10 @@ public class NoticiaDAO {
     
     public boolean update(Noticia noticia) {
         try {
-            PreparedStatement smt = con.prepareStatement("update noticias set titulo=?, conteudo=? where id=?");
+            PreparedStatement smt = con.prepareStatement("update noticias set titulo=?, resumo=? where id=?");
             
             smt.setString(1, noticia.getTitulo());
-            smt.setString(2, noticia.getConteudo());
+            smt.setString(2, noticia.getResumo());
             smt.setInt(3, noticia.getId());
             
             int affectedRows = smt.executeUpdate();
@@ -83,7 +83,7 @@ public class NoticiaDAO {
         List<Noticia> lista = new ArrayList<>();
         
         try {
-            PreparedStatement smt = con.prepareStatement("select * from noticias");
+            PreparedStatement smt = con.prepareStatement("select * from noticias order by id desc");
             
             ResultSet rs = smt.executeQuery();
             
@@ -92,7 +92,7 @@ public class NoticiaDAO {
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));
-                noticia.setConteudo(rs.getString("conteudo"));
+                noticia.setResumo(rs.getString("resumo"));
                 
                 lista.add(noticia);
             }
@@ -108,7 +108,7 @@ public class NoticiaDAO {
         List<Noticia> lista = new ArrayList<>();
         
         try {
-            PreparedStatement smt = con.prepareStatement("select * from noticias where lower(titulo) like lower(?) or lower(conteudo) like lower(?)");
+            PreparedStatement smt = con.prepareStatement("select * from noticias where lower(titulo) like lower(?) or lower(resumo) like lower(? order by id desc)");
             
             smt.setString(1, "%" + query + "%");
             smt.setString(2, "%" + query + "%");
@@ -120,7 +120,7 @@ public class NoticiaDAO {
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));
-                noticia.setConteudo(rs.getString("conteudo"));
+                noticia.setResumo(rs.getString("resumo"));
                 
                 lista.add(noticia);
             }
@@ -136,7 +136,7 @@ public class NoticiaDAO {
         Noticia noticia = new Noticia();
         
         try {
-            PreparedStatement smt = con.prepareStatement("select * from noticias where id=?");
+            PreparedStatement smt = con.prepareStatement("select * from noticias where id=? order by id desc");
             
             smt.setInt(1, id);
             
@@ -146,7 +146,7 @@ public class NoticiaDAO {
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));
-                noticia.setConteudo(rs.getString("conteudo"));                
+                noticia.setResumo(rs.getString("resumo"));                
             }
         } catch (SQLException ex) {
             Logger.getLogger(NoticiaDAO.class.getName()).log(Level.SEVERE, null, ex);
