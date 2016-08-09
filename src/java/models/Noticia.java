@@ -12,11 +12,11 @@ package models;
 public class Noticia {
     private int id;
     private String titulo;
-    private String conteudo;
+    private String resumo;
     
     public Noticia(String titulo, String conteudo) {
         this.titulo = titulo;
-        this.conteudo = conteudo;
+        this.resumo = conteudo;
     }
 
     public Noticia() {
@@ -45,17 +45,17 @@ public class Noticia {
     }
 
     /**
-     * @return the conteudo
+     * @return the resumo
      */
-    public String getConteudo() {
-        return conteudo;
+    public String getResumo() {
+        return resumo;
     }
 
     /**
-     * @param conteudo the conteudo to set
+     * @param resumo the resumo to set
      */
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setResumo(String resumo) {
+        this.resumo = resumo;
     }
 
     /**

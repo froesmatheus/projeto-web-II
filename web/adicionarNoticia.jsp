@@ -30,7 +30,7 @@
                 </div>
                 <br/>
                 <div class="input-group">
-                    <span class="input-group-addon" id="sizing-addon2">Conteúdo</span>
+                    <span class="input-group-addon" id="sizing-addon2">Resumo</span>
                     <input name="conteudo" type="text" class="form-control" aria-describedby="sizing-addon2">
                 </div>
                 <br/>
@@ -41,9 +41,9 @@
             <%
                 if (request.getParameter("btn_adicionar") != null) {
                     String titulo = request.getParameter("titulo");
-                    String conteudo = request.getParameter("conteudo");
+                    String resumo = request.getParameter("conteudo");
 
-                    boolean inserted = dao.insert(new Noticia(titulo, conteudo));
+                    boolean inserted = dao.insert(new Noticia(titulo, resumo));
 
                     if (inserted)
                         response.sendRedirect("index.jsp");

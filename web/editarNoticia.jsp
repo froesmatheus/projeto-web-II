@@ -37,8 +37,8 @@
                 </div>
                 <br/>
                 <div class="input-group">
-                    <span class="input-group-addon" id="sizing-addon2">Conteúdo</span>
-                    <input value="<%=noticia.getConteudo()%>" name="conteudo" type="text" class="form-control" aria-describedby="sizing-addon2">
+                    <span class="input-group-addon" id="sizing-addon2">Resumo</span>
+                    <input value="<%=noticia.getResumo()%>" name="conteudo" type="text" class="form-control" aria-describedby="sizing-addon2">
                 </div>
                 <br/>
                 <input name="id" type="hidden" value="<%=noticia.getId()%>"/>
@@ -49,12 +49,12 @@
             <%
                 if (request.getParameter("btn_atualizar") != null) {
                     String titulo = request.getParameter("titulo");
-                    String conteudo = request.getParameter("conteudo");
+                    String resumo = request.getParameter("conteudo");
                     int id = Integer.parseInt(request.getParameter("id"));
                     
                     noticia.setTitulo(titulo);
                     noticia.setId(id);
-                    noticia.setConteudo(conteudo);
+                    noticia.setResumo(resumo);
                     
                     boolean updated = dao.update(noticia);
 

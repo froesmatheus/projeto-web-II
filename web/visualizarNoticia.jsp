@@ -12,15 +12,12 @@
 <%
     NoticiaDAO dao = new NoticiaDAO();
     
-    List<Noticia> listaNoticias;
-    
-    boolean filtrando;
-    if (filtrando = request.getParameter("query") != null) {
-        listaNoticias = dao.where(request.getParameter("query"));
-    } else {
-        filtrando = false;
-        listaNoticias = dao.select();
+    Noticia noticia = null;
+    if (request.getParameter("noticia_id") != null) {
+        int id = Integer.parseInt(request.getParameter("noticia_id"));
+        noticia = dao.select(id);
     }
+    
 %>
 <html lang="pt-BR">
     
@@ -43,40 +40,13 @@
   <body>
 
     <div class="container">
-        <%
-            if (filtrando) {%>
-                <h3>Filtrando por: <%=request.getParameter("query")%></h3>
-                <br/>
-          <%}
-          %>
+            
+        <article>
+            <h3><%=noticia.getTitulo()%></h3>
+            <p><%=noticia.getResumo()%></p>
+        </article>
         
-        
-        
-        <% for (Noticia noticia : listaNoticias) {%>
-            <article>
-                <a href="visualizarNoticia.jsp?noticia_id=<%=noticia.getId()%>">
-                    <h3><%=noticia.getTitulo()%></h3>
-                </a>
-                
-                <p><%=noticia.getResumo()%></p>
-                
-                <form name="form_acoes" method="post" action="index.jsp">
-                    <input name="noticia_id" type="hidden" value="<%=noticia.getId()%>"/>
-                    <input formaction="editarNoticia.jsp" value="Editar" type="submit" name="btn_editar" class="btn btn-info"/>
-                    <input value="Excluir" type="submit" name="btn_excluir" class="btn btn-danger"/>
-                </form>
-            </article>
-        <%}%>
-        
-        <%
-            if (request.getParameter("btn_excluir") != null) {
-                int id = Integer.parseInt(request.getParameter("noticia_id"));
-                dao.delete(id);
-                response.sendRedirect("index.jsp");
-            }  
-        %>
-        
-        
+              
     </div><!-- /.container -->
 
 
@@ -91,8 +61,6 @@
     <script src="js/ie10-viewport-bug-workaround.js"></script>
   
    
-    <footer>
-        <%@include file="footer.jspf" %>
-    </footer>
+    
 </body>
 </html>
