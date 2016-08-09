@@ -133,7 +133,7 @@ public class NoticiaDAO {
     }
     
     public Noticia select(int id) {
-        Noticia noticia = new Noticia();
+        Noticia noticia = null;
         
         try {
             PreparedStatement smt = con.prepareStatement("select * from noticias where id=? order by id desc");
@@ -143,6 +143,7 @@ public class NoticiaDAO {
             ResultSet rs = smt.executeQuery();
             
             while (rs.next()) {
+                noticia = new Noticia();
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));

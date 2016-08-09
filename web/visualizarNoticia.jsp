@@ -16,6 +16,10 @@
     if (request.getParameter("noticia_id") != null) {
         int id = Integer.parseInt(request.getParameter("noticia_id"));
         noticia = dao.select(id);
+        
+        if (noticia == null) {
+            throw new Exception("Notícia não encontrada");
+        }
     }
     
 %>
