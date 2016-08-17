@@ -1,3 +1,5 @@
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : index
     Created on : 06/08/2016, 19:53:29
@@ -8,6 +10,7 @@
 <%@page import="models.Noticia"%>
 <%@page import="db.daos.NoticiaDAO"%>
 <%@page contentType="text/html" session="true"  pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <%
     NoticiaDAO dao = new NoticiaDAO();
@@ -15,8 +18,9 @@
     List<Noticia> listaNoticias;
     
     boolean filtrando;
-    if (filtrando = request.getParameter("query") != null) {
+    if (request.getParameter("query") != null) {
         listaNoticias = dao.where(request.getParameter("query"));
+        filtrando = true;
     } else {
         filtrando = false;
         listaNoticias = dao.select();
@@ -50,22 +54,31 @@
           <%}
           %>
         
-        
-        
+        <%--<sql:setDataSource var="con" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://localhost:3311/projetowebii" user="root" password="root"/>
+
+        <sql:query var="rs" dataSource="${con}">
+            select * from noticias
+        </sql:query>
+              
+        <c:forEach var="row" items="${rs.rowsByIndex}">
+            ${row[1]}<br/>
+        </c:forEach><--%>
+         
         <% for (Noticia noticia : listaNoticias) {%>
-            <article>
-                <a href="visualizarNoticia.jsp?noticia_id=<%=noticia.getId()%>">
-                    <h3><%=noticia.getTitulo()%></h3>
-                </a>
-                
-                <p><%=noticia.getResumo()%></p>
-                
-                <form name="form_acoes" method="post" action="index.jsp">
-                    <input name="noticia_id" type="hidden" value="<%=noticia.getId()%>"/>
-                    <input formaction="editarNoticia.jsp" value="Editar" type="submit" name="btn_editar" class="btn btn-info"/>
-                    <input value="Excluir" type="submit" name="btn_excluir" class="btn btn-danger"/>
-                </form>
-            </article>
+          <article>
+              <a href="visualizarNoticia.jsp?noticia_id=<%=noticia.getId()%>">
+                  <h3><%=noticia.getTitulo()%></h3>
+              </a>
+
+              <p><%=noticia.getResumo()%></p>
+
+              <form name="form_acoes" method="post" action="index.jsp">
+                  <input name="noticia_id" type="hidden" value="<%=noticia.getId()%>"/>
+                  <input formaction="editarNoticia.jsp" value="Editar" type="submit" name="btn_editar" class="btn btn-info"/>
+                  <input value="Excluir" type="submit" name="btn_excluir" class="btn btn-danger"/>
+              </form>
+          </article>
         <%}%>
         
         <%

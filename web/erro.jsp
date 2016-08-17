@@ -19,7 +19,7 @@
     <body>
         <div class="container" style="text-align: center;">
             
-            <h1>Notícia não encontrada</h1> 
+            <h1><%=exception.getMessage()%></h1> 
              
             <br/>
             

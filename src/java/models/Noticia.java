@@ -13,10 +13,17 @@ public class Noticia {
     private int id;
     private String titulo;
     private String resumo;
+    private String conteudo;
     
-    public Noticia(String titulo, String conteudo) {
+    public Noticia(String titulo, String resumo) {
         this.titulo = titulo;
-        this.resumo = conteudo;
+        this.resumo = resumo;
+    }
+    
+    public Noticia(String titulo, String resumo, String conteudo) {
+        this.titulo = titulo;
+        this.resumo = resumo;
+        this.conteudo = conteudo;
     }
 
     public Noticia() {
@@ -64,4 +71,18 @@ public class Noticia {
     public void setId(int id) {
         this.id = id;
     }   
+
+    /**
+     * @return the conteudo
+     */
+    public String getConteudo() {
+        return conteudo;
+    }
+
+    /**
+     * @param conteudo the conteudo to set
+     */
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
+    }
 }

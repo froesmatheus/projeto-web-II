@@ -29,10 +29,11 @@ public class NoticiaDAO {
     
     public boolean insert(Noticia noticia) {
         try {
-            PreparedStatement smt = con.prepareStatement("insert into noticias(titulo, resumo) values (?, ?)");
+            PreparedStatement smt = con.prepareStatement("insert into noticias(titulo, resumo, conteudo) values (?, ?, ?)");
             
             smt.setString(1, noticia.getTitulo());
             smt.setString(2, noticia.getResumo());
+            smt.setString(3, noticia.getConteudo());
             
             int affectedRows = smt.executeUpdate();
                
@@ -46,11 +47,12 @@ public class NoticiaDAO {
     
     public boolean update(Noticia noticia) {
         try {
-            PreparedStatement smt = con.prepareStatement("update noticias set titulo=?, resumo=? where id=?");
+            PreparedStatement smt = con.prepareStatement("update noticias set titulo=?, resumo=?, conteudo=? where id=?");
             
             smt.setString(1, noticia.getTitulo());
             smt.setString(2, noticia.getResumo());
-            smt.setInt(3, noticia.getId());
+            smt.setString(3, noticia.getConteudo());
+            smt.setInt(4, noticia.getId());
             
             int affectedRows = smt.executeUpdate();
                
@@ -92,6 +94,7 @@ public class NoticiaDAO {
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));
+                noticia.setConteudo(rs.getString("conteudo"));
                 noticia.setResumo(rs.getString("resumo"));
                 
                 lista.add(noticia);
@@ -108,7 +111,7 @@ public class NoticiaDAO {
         List<Noticia> lista = new ArrayList<>();
         
         try {
-            PreparedStatement smt = con.prepareStatement("select * from noticias where lower(titulo) like lower(?) or lower(resumo) like lower(? order by id desc)");
+            PreparedStatement smt = con.prepareStatement("select * from noticias where lower(titulo) like lower(?) or lower(resumo) like lower(?) order by id desc");
             
             smt.setString(1, "%" + query + "%");
             smt.setString(2, "%" + query + "%");
@@ -120,6 +123,7 @@ public class NoticiaDAO {
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));
+                noticia.setConteudo(rs.getString("conteudo"));
                 noticia.setResumo(rs.getString("resumo"));
                 
                 lista.add(noticia);
@@ -147,6 +151,7 @@ public class NoticiaDAO {
                 
                 noticia.setId(rs.getInt("id"));
                 noticia.setTitulo(rs.getString("titulo"));
+                noticia.setConteudo(rs.getString("conteudo"));
                 noticia.setResumo(rs.getString("resumo"));                
             }
         } catch (SQLException ex) {

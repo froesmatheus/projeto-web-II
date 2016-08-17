@@ -48,6 +48,8 @@
         <article>
             <h3><%=noticia.getTitulo()%></h3>
             <p><%=noticia.getResumo()%></p>
+            
+            <p><%=noticia.getConteudo()%></p>
         </article>
         
               

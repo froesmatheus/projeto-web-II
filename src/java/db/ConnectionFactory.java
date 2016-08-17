@@ -23,7 +23,7 @@ public class ConnectionFactory {
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         if (con == null) {
            Class.forName("com.mysql.jdbc.Driver");
-           con = DriverManager.getConnection("jdbc:mysql://localhost:3311/projetowebii",
+           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys",
             "root", "root"); 
         } 
         
